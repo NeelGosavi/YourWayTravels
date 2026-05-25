@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>YourWay Travel | Your Choice, Your Way</title>
+    <title>YourWayTravel | Your Choice, Your Way</title>
     <!-- Tailwind + Fonts + Icons + Leaflet -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -19,19 +19,34 @@
         
         html { scroll-behavior: smooth; scroll-padding-top: 70px; }
         
-        /* Mobile responsive adjustments */
         @media (max-width: 768px) {
             html { scroll-padding-top: 60px; }
-            .hero-bg-custom {
-                background-position: center 20%;
-            }
+            .hero-bg-custom { background-position: center 20%; }
         }
         
         .hero-bg-custom {
-            background: linear-gradient(135deg, rgba(11,43,64,0.92) 0%, rgba(11,43,64,0.75) 100%), url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background: linear-gradient(135deg, rgba(11,43,64,0.88) 0%, rgba(11,43,64,0.82) 100%), url('https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg?auto=compress&cs=tinysrgb&w=1600');
             background-size: cover;
-            background-position: center 30%;
+            background-position: center 40%;
+            position: relative;
         }
+        
+        .hero-bg-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(11,43,64,0.3) 100%);
+            pointer-events: none;
+        }
+        
+        .hero-logo {
+            animation: fadeInUp 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+        .hero-logo:hover { transform: scale(1.05); }
         
         .card-hover {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -108,10 +123,7 @@
         }
         .nav-link:hover::after { width: 100%; }
         
-        .stars {
-            color: #ffc107;
-            letter-spacing: 2px;
-        }
+        .stars { color: #ffc107; letter-spacing: 2px; }
         
         .map-modal {
             display: none;
@@ -125,10 +137,7 @@
             align-items: center;
             justify-content: center;
         }
-        .map-modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
+        .map-modal.active { display: flex; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -143,10 +152,7 @@
             overflow: hidden;
         }
         @media (max-width: 640px) {
-            .map-modal-content {
-                width: 95%;
-                height: 400px;
-            }
+            .map-modal-content { width: 95%; height: 400px; }
         }
         .map-modal-close {
             position: absolute;
@@ -166,13 +172,8 @@
             font-weight: bold;
             color: #333;
         }
-        .map-modal-close:hover {
-            background: #f0f0f0;
-        }
-        #destination-map {
-            width: 100%;
-            height: 100%;
-        }
+        .map-modal-close:hover { background: #f0f0f0; }
+        #destination-map { width: 100%; height: 100%; }
         
         .sort-select {
             border-radius: 9999px;
@@ -181,69 +182,45 @@
             background: white;
         }
         
-        .featured-badge {
-            background: linear-gradient(135deg, #E6865E, #D4724B);
+        .featured-badge { background: linear-gradient(135deg, #E6865E, #D4724B); }
+        .trending-badge { background: linear-gradient(135deg, #0B2B40, #1a4a6e); }
+        
+        /* Form Styles */
+        .form-input, .form-select, .form-textarea {
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
         }
-        .trending-badge {
-            background: linear-gradient(135deg, #0B2B40, #1a4a6e);
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #E6865E;
+            ring: 2px solid #E6865E;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(230,134,94,0.1);
         }
         
-        /* Responsive text utilities */
         @media (max-width: 640px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            .section-title {
-                font-size: 1.875rem;
-            }
-        }
-        
-        /* Modal responsive */
-        @media (max-width: 640px) {
-            #modal .bg-white {
-                width: 95%;
-                margin: 0 auto;
-                padding: 1rem;
-            }
-            #modal .text-2xl {
-                font-size: 1.25rem;
-            }
-            #modal-itinerary {
-                font-size: 0.75rem;
-            }
-        }
-        
-        /* Footer responsive */
-        @media (max-width: 640px) {
-            footer .flex {
-                flex-direction: column;
-                text-align: center;
-            }
-            footer .gap-6 {
-                margin-top: 1rem;
-            }
-        }
-        
-        /* Grid responsive */
-        @media (max-width: 768px) {
-            #destinations-grid {
-                gap: 1rem;
-            }
+            .hero-text h1 { font-size: 2rem; }
+            .section-title { font-size: 1.875rem; }
+            .hero-logo { width: 80px; height: 80px; }
+            #modal .bg-white { width: 95%; margin: 0 auto; padding: 1rem; }
+            #modal .text-2xl { font-size: 1.25rem; }
+            #modal-itinerary { font-size: 0.75rem; }
+            footer .flex { flex-direction: column; text-align: center; }
+            footer .gap-6 { margin-top: 1rem; }
+            #destinations-grid { gap: 1rem; }
         }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
 
-    <!-- Responsive Navbar -->
+    <!-- Navbar -->
     <nav class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100 transition-all duration-300" id="navbar">
         <div class="container mx-auto px-4 sm:px-5 lg:px-8 py-2 sm:py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2 sm:space-x-3 group">
-                <!-- Responsive Logo Container -->
                 <a href="#home" class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 group-hover:scale-105 overflow-hidden">
-                    <img src="./assets/images/YourWay Travel NoBG.png" alt="YourWay Travel Logo" class="w-10 h-10 sm:w-14 sm:h-14 object-contain">
+                    <img src="./assets/images/YourWay Travel NoBG.png" alt="YourWayTravel Logo" class="w-10 h-10 sm:w-14 sm:h-14 object-contain">
                 </a>
                 <div>
-                    <div class="text-lg sm:text-2xl font-extrabold tracking-tight"><span class="text-brand-deep">YourWay</span><span class="text-brand-coral">Travels</span></div>
+                    <div class="text-lg sm:text-2xl font-extrabold tracking-tight"><span class="text-brand-deep">YourWay</span><span class="text-brand-coral">Travel</span></div>
                     <div class="text-[9px] sm:text-[11px] font-medium text-gray-500 -mt-1 tracking-wide">YOUR CHOICE · YOUR WAY</div>
                 </div>
             </div>
@@ -265,23 +242,34 @@
         </div>
     </nav>
 
-    <!-- Responsive Hero Section -->
-    <section id="home" class="hero-bg-custom py-16 sm:py-24 lg:py-32 text-white">
-        <div class="container mx-auto px-4 sm:px-5 text-center">
-            <div class="inline-block px-3 py-1 sm:px-4 sm:py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs sm:text-sm font-semibold mb-3 sm:mb-4 hero-text">✨ Premium Travel Packages Collection</div>
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-3 sm:mb-5 leading-tight tracking-tight hero-text">YOUR CHOICE <br><span class="text-brand-coral">YOUR WAY</span></h1>
-            <p class="text-sm sm:text-lg md:text-xl max-w-2xl mx-auto opacity-90 mb-6 sm:mb-10 hero-text px-4" style="animation-delay: 0.2s">Domestic + International with structured, realistic itineraries</p>
-            <a href="#destinations" class="cta-btn-custom inline-block px-6 sm:px-8 py-2 sm:py-3 rounded-full font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl text-sm sm:text-base" style="animation-delay: 0.4s">Explore Packages →</a>
+    <!-- Hero Section - Updated with Attractive Text -->
+    <section id="home" class="hero-bg-custom py-16 sm:py-20 lg:py-24 text-white">
+        <div class="container mx-auto px-4 sm:px-5 text-center relative z-10">
+            <div class="flex justify-center mb-6 sm:mb-8">
+                <div class="hero-logo w-24 h-24 sm:w-32 sm:h-32 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-2xl border-4 border-white/50">
+                    <img src="./assets/images/YourWay Travel NoBG.png" alt="YourWayTravel Logo" class="w-20 h-20 sm:w-28 sm:h-28 object-contain">
+                </div>
+            </div>
+            <div class="inline-block px-3 py-1 sm:px-4 sm:py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs sm:text-sm font-semibold mb-3 sm:mb-4 hero-text">✨ Let's Explore Together</div>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-3 sm:mb-5 leading-tight tracking-tight hero-text">
+                Where Will <span class="text-brand-coral">Your</span><br>
+                Next <span class="text-brand-coral">Adventure</span> Take You?
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto opacity-95 mb-6 sm:mb-10 hero-text px-4 leading-relaxed" style="animation-delay: 0.2s">
+                🗺️ Tailored Itineraries • Local Expertise • Unbeatable Value
+            </p>
+            <a href="#destinations" class="cta-btn-custom inline-block px-6 sm:px-8 py-2 sm:py-3 rounded-full font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl text-sm sm:text-base" style="animation-delay: 0.4s">
+                Start Your Adventure →
+            </a>
         </div>
     </section>
 
-    <!-- Premium Packages Section -->
+    <!-- Packages Section -->
     <section id="destinations" class="py-12 sm:py-20 bg-white scroll-reveal">
         <div class="container mx-auto px-4 sm:px-5">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-brand-deep section-title pb-2">Premium Travel Packages</h2>
             <p class="text-center text-gray-500 max-w-2xl mx-auto mb-8 sm:mb-10 text-sm sm:text-base">Domestic + International with structured, realistic itineraries</p>
             
-            <!-- Responsive Filter Bar -->
             <div class="mb-8 sm:mb-12 flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center flex-wrap">
                 <input type="text" id="search-input" placeholder="Search packages..." class="search-input w-full sm:w-auto sm:flex-1 md:w-64 px-4 sm:px-5 py-2 sm:py-2.5 border border-gray-200 rounded-full focus:outline-none shadow-sm transition-all duration-300 focus:shadow-md text-sm">
                 <select id="type-filter" class="filter-select w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-2.5 border border-gray-200 rounded-full bg-white shadow-sm text-sm">
@@ -304,9 +292,7 @@
                 <button id="clear-filters" class="w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-2.5 border border-gray-300 rounded-full hover:bg-gray-100 transition text-sm">Clear All</button>
             </div>
             
-            <div id="destinations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
-                <!-- dynamic cards injected via JS -->
-            </div>
+            <div id="destinations-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"></div>
         </div>
     </section>
 
@@ -318,7 +304,98 @@
         </div>
     </div>
 
-    <!-- Services Section - Responsive -->
+    <!-- Enquiry Form Modal -->
+    <div id="enquiry-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 max-w-lg w-full mx-auto max-h-[90vh] overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl sm:text-2xl font-bold text-brand-deep">📝 Package Enquiry</h3>
+                <button id="close-enquiry-modal" class="text-2xl sm:text-3xl text-gray-400 hover:text-gray-700 transition-colors">&times;</button>
+            </div>
+            <div class="bg-brand-coral/10 p-3 rounded-lg mb-4">
+                <p class="text-sm text-gray-700"><span class="font-bold">📌 Package:</span> <span id="enquiry-package-name" class="text-brand-coral font-semibold"></span></p>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Please fill out the below details for better understanding to quote:</p>
+            
+            <form id="enquiry-form" class="space-y-4">
+                <input type="hidden" id="package-name" value="">
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Travel Date</label>
+                    <input type="date" id="travel-date" required class="form-input w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Number of Guests</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-xs text-gray-500">Adults</label>
+                            <input type="number" id="adults" min="1" value="2" required class="form-input w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500">Children (Below 12 yrs)</label>
+                            <input type="number" id="children" min="0" value="0" class="form-input w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Number of Nights</label>
+                    <select id="nights" required class="form-select w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        <option value="">Select nights</option>
+                        <option value="3">3 Nights</option>
+                        <option value="4">4 Nights</option>
+                        <option value="5">5 Nights</option>
+                        <option value="6">6 Nights</option>
+                        <option value="7">7 Nights</option>
+                        <option value="8">8 Nights</option>
+                        <option value="9">9 Nights</option>
+                        <option value="10">10+ Nights</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Hotel Category</label>
+                    <select id="hotel-category" required class="form-select w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        <option value="">Select category</option>
+                        <option value="Budget">Budget (2-3 Star)</option>
+                        <option value="Standard">Standard (3 Star)</option>
+                        <option value="Deluxe">Deluxe (4 Star)</option>
+                        <option value="Premium">Premium (5 Star)</option>
+                        <option value="Luxury">Luxury (5 Star Deluxe)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Meal Plan</label>
+                    <select id="meal-plan" required class="form-select w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        <option value="">Select meal plan</option>
+                        <option value="CP">CP - Breakfast Only</option>
+                        <option value="MAP">MAP - Breakfast + Dinner</option>
+                        <option value="AP">AP - Breakfast + Lunch + Dinner</option>
+                        <option value="EP">EP - Room Only (No Meals)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Tour Type</label>
+                    <select id="tour-type" required class="form-select w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                        <option value="">Select tour type</option>
+                        <option value="Sharing">Sharing (Group Tour)</option>
+                        <option value="PVT">PVT (Private Tour)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Additional Requests (Optional)</label>
+                    <textarea id="special-requests" rows="2" class="form-textarea w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none" placeholder="Any special requirements or preferences..."></textarea>
+                </div>
+                
+                <button type="submit" class="cta-btn-custom w-full py-3 rounded-xl font-bold text-white transition-all duration-300">📤 Send Enquiry via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Services Section -->
     <section id="services" class="py-12 sm:py-20 bg-gray-50 scroll-reveal">
         <div class="container mx-auto px-4 sm:px-5">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-brand-deep section-title">Premium Services</h2>
@@ -347,12 +424,12 @@
         </div>
     </section>
 
-    <!-- About Us Section - Responsive -->
+    <!-- About Section -->
     <section id="about" class="py-12 sm:py-20 bg-white scroll-reveal">
         <div class="container mx-auto px-4 sm:px-5 max-w-5xl">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-brand-deep section-title">Your Story, Our Passion</h2>
             <div class="bg-gray-50 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-md mt-8 sm:mt-10">
-                <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-5">At <span class="font-bold text-brand-coral">YourWayTravels</span>, we don't just sell trips — we craft experiences. Inspired by the "Your Choice, Your Way" philosophy, we blend local authenticity with personal freedom. Whether it's a peaceful beach retreat or a thrilling mountain trek, we design every detail around you.</p>
+                <p class="text-gray-700 text-base sm:text-lg leading-relaxed mb-5">At <span class="font-bold text-brand-coral">YourWayTravel</span>, we don't just sell trips — we craft experiences. Inspired by the "Your Choice, Your Way" philosophy, we blend local authenticity with personal freedom. Whether it's a peaceful beach retreat or a thrilling mountain trek, we design every detail around you.</p>
                 <div class="flex flex-wrap gap-4 sm:gap-6 justify-center mt-4 sm:mt-6">
                     <div class="flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-check-circle text-brand-coral"></i><span>100% Tailored Trips</span></div>
                     <div class="flex items-center gap-2 text-sm sm:text-base"><i class="fas fa-check-circle text-brand-coral"></i><span>Best Price Guarantee</span></div>
@@ -362,27 +439,27 @@
         </div>
     </section>
 
-    <!-- Responsive Footer -->
+    <!-- Footer -->
     <footer class="bg-brand-deep text-gray-200 pt-8 sm:pt-12 pb-4 sm:pb-6">
         <div class="container mx-auto px-4 sm:px-5">
             <div class="flex flex-col md:flex-row justify-between items-center border-b border-white/20 pb-6 sm:pb-8">
                 <div class="flex items-center gap-2 mb-4 md:mb-0 group">
                     <div class="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center"><i class="fas fa-route text-brand-coral text-lg sm:text-xl"></i></div>
-                    <div><span class="text-xl sm:text-2xl font-extrabold text-white">YourWay<span class="text-brand-coral">Travels</span></span><p class="text-[10px] sm:text-xs opacity-80">YOUR CHOICE · YOUR WAY</p></div>
+                    <div><span class="text-xl sm:text-2xl font-extrabold text-white">YourWay<span class="text-brand-coral">Travel</span></span><p class="text-[10px] sm:text-xs opacity-80">YOUR CHOICE · YOUR WAY</p></div>
                 </div>
                 <div class="flex gap-4 sm:gap-6">
-                    <a href="https://wa.me/919372599522?text=Hi%20YourWayTravels%2C%20I'd%20like%20to%20know%20more%20about%20your%20packages" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-green-400 transition text-sm sm:text-base"><i class="fab fa-whatsapp text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">WhatsApp</span></a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kaivalya@yourwaytravel.in&su=Package%20Inquiry&body=Hi%20YourWayTravels" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition text-sm sm:text-base"><i class="fas fa-envelope text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">Email</span></a>
+                    <a href="https://wa.me/919372599522?text=Hi%20YourWayTravel%2C%20I'd%20like%20to%20know%20more%20about%20your%20packages" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-green-400 transition text-sm sm:text-base"><i class="fab fa-whatsapp text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">WhatsApp</span></a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kaivalya@yourwaytravel.in&su=Package%20Inquiry&body=Hi%20YourWayTravel" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition text-sm sm:text-base"><i class="fas fa-envelope text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">Email</span></a>
                 </div>
             </div>
             <div class="text-center text-xs sm:text-sm text-gray-300 pt-4 sm:pt-6">
-                <p>© 2025 YourWayTravels — Travel your rhythm, your rules.</p>
+                <p>© 2025 YourWayTravel — Travel your rhythm, your rules.</p>
                 <p class="mt-1 sm:mt-2 text-xs sm:text-sm">📞 <a href="tel:+919372599522" class="hover:text-brand-coral">+91 9372 599 522</a> ✉️ <a href="mailto:kaivalya@yourwaytravel.in" class="hover:text-brand-coral">kaivalya@yourwaytravel.in</a></p>
             </div>
         </div>
     </footer>
 
-    <!-- Responsive Modal Detail -->
+    <!-- Detail Modal -->
     <div id="modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl p-4 sm:p-6 max-w-3xl w-full mx-auto max-h-[90vh] overflow-auto">
             <div class="flex justify-between items-center mb-3">
@@ -398,12 +475,12 @@
                 <h4 class="font-bold text-brand-deep mb-2 text-sm sm:text-base">💰 Package Cost</h4>
                 <p id="modal-price" class="text-gray-700 text-sm sm:text-base"></p>
             </div>
-            <button id="whatsapp-booking-btn" class="cta-btn-custom w-full py-2 sm:py-3 rounded-xl font-bold text-white transition-all duration-300 text-sm sm:text-base">✈️ Request Custom Booking via WhatsApp</button>
+            <button id="enquiry-trigger-btn" class="cta-btn-custom w-full py-2 sm:py-3 rounded-xl font-bold text-white transition-all duration-300 text-sm sm:text-base">✈️ Request Custom Booking via WhatsApp</button>
         </div>
     </div>
 
     <script>
-        // Complete Package Data (same as before)
+        // Package Data
         const packagesData = [
             { id:1, name:"Kashmir Paradise Escape", type:"Domestic", budget:"Budget", duration:"7", price:"18000", priceRange:"₹18,000–22,000", image:"https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=600&h=400&fit=crop", desc:"7 Days / 6 Nights - Srinagar, Gulmarg, Pahalgam with houseboat stay.", rating:4.9, featured:true, trending:true, bestSeason:"March–October", lat:34.0837, lng:74.7973, 
               itinerary:"🏔️ KASHMIR PARADISE ESCAPE - 7 Days / 6 Nights\n\n🏨 STAY PLAN:\n• Srinagar – 2 Nights\n• Gulmarg – 1 Night\n• Pahalgam – 2 Nights\n• Houseboat – 1 Night\n\n📅 DAY 1 — Arrival Srinagar\nMorning: Airport pickup, Hotel check-in, Welcome drink\nAfternoon: Visit Mughal Gardens, Nishat Garden, Shalimar Garden, Chashme Shahi\nEvening: Shikara ride at Dal Lake, Floating market, Sunset photography\n\n📅 DAY 2 — Sonmarg Excursion\nVisit: Sonmarg, Thajiwas Glacier, Sindh River\nActivities: Pony rides, Snow activities, Photography\n\n📅 DAY 3 — Srinagar to Gulmarg\nVisit: Gulmarg\nActivities: Gondola Ride Phase I & II, Ski activities, ATV rides\n\n📅 DAY 4-5 — Pahalgam\nVisit: Betaab Valley, Aru Valley, Chandanwari\nActivities: River rafting, Horse riding, Camping\n\n📅 DAY 6 — Houseboat stay with cultural dinner\n\n📅 DAY 7 — Departure\n\n💰 PACKAGE COST:\nBudget: ₹18,000–22,000\nPremium: ₹45,000–60,000" },
@@ -438,6 +515,7 @@
 
         let currentPackages = [...packagesData];
         let currentMap = null;
+        let selectedPackage = null;
 
         function renderStars(rating) {
             const fullStars = Math.floor(rating);
@@ -504,7 +582,7 @@
                 e.stopPropagation();
                 const id = parseInt(btn.getAttribute('data-id'));
                 const pkg = packagesData.find(p => p.id === id);
-                if(pkg) openModal(pkg);
+                if(pkg) openDetailModal(pkg);
             }));
             
             document.querySelectorAll('.view-map-btn').forEach(btn => btn.addEventListener('click', (e) => {
@@ -534,6 +612,79 @@
             modal.classList.remove('active');
             if(currentMap) { currentMap.remove(); currentMap = null; }
         }
+
+        function openDetailModal(pkg) {
+            selectedPackage = pkg;
+            const modal = document.getElementById('modal');
+            document.getElementById('modal-title').innerText = pkg.name;
+            document.getElementById('modal-image').src = pkg.image;
+            document.getElementById('modal-itinerary').innerHTML = pkg.itinerary.replace(/\n/g, '<br>');
+            document.getElementById('modal-price').innerHTML = pkg.priceRange;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function openEnquiryModal(pkgName) {
+            const enquiryModal = document.getElementById('enquiry-modal');
+            document.getElementById('enquiry-package-name').innerText = pkgName;
+            document.getElementById('package-name').value = pkgName;
+            
+            // Reset form
+            document.getElementById('travel-date').value = '';
+            document.getElementById('adults').value = '2';
+            document.getElementById('children').value = '0';
+            document.getElementById('nights').value = '';
+            document.getElementById('hotel-category').value = '';
+            document.getElementById('meal-plan').value = '';
+            document.getElementById('tour-type').value = '';
+            document.getElementById('special-requests').value = '';
+            
+            enquiryModal.classList.remove('hidden');
+            enquiryModal.classList.add('flex');
+        }
+
+        // Handle enquiry form submission
+        document.getElementById('enquiry-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const packageName = document.getElementById('package-name').value;
+            const travelDate = document.getElementById('travel-date').value;
+            const adults = document.getElementById('adults').value;
+            const children = document.getElementById('children').value;
+            const nights = document.getElementById('nights').value;
+            const hotelCategory = document.getElementById('hotel-category').value;
+            const mealPlan = document.getElementById('meal-plan').value;
+            const tourType = document.getElementById('tour-type').value;
+            const specialRequests = document.getElementById('special-requests').value;
+            
+            // Get meal plan full text
+            const mealPlanText = document.getElementById('meal-plan').options[document.getElementById('meal-plan').selectedIndex]?.text || mealPlan;
+            const hotelCategoryText = document.getElementById('hotel-category').options[document.getElementById('hotel-category').selectedIndex]?.text || hotelCategory;
+            
+            // Format the message - Plain text, no bold/italic
+            let message = `NEW PACKAGE ENQUIRY%0A%0A`;
+            message += `Package: ${packageName}%0A`;
+            message += `Travel Date: ${travelDate || 'Not specified'}%0A`;
+            message += `Guests: ${adults} Adults, ${children} Children%0A`;
+            message += `Nights: ${nights} Nights%0A`;
+            message += `Hotel Category: ${hotelCategoryText}%0A`;
+            message += `Meal Plan: ${mealPlanText}%0A`;
+            message += `Tour Type: ${tourType}%0A`;
+            if(specialRequests) {
+                message += `%0ASpecial Requests: ${specialRequests}%0A`;
+            }
+            message += `%0APlease share the best quote for this package.%0A`;
+            message += `%0A---%0A`;
+            message += `Sent via YourWayTravel Website`;
+            
+            // Send to WhatsApp
+            const whatsappUrl = `https://wa.me/919372599522?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            // Close modal
+            document.getElementById('enquiry-modal').classList.add('hidden');
+            document.getElementById('enquiry-modal').classList.remove('flex');
+        });
 
         function applyFiltersAndSort() {
             const searchTerm = document.getElementById('search-input').value.toLowerCase();
@@ -605,42 +756,38 @@
         const mobileMenu = document.getElementById('mobile-menu');
         toggleBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
-        const openModal = (pkg) => {
-            const modal = document.getElementById('modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalImage = document.getElementById('modal-image');
-            const modalItinerary = document.getElementById('modal-itinerary');
-            const modalPrice = document.getElementById('modal-price');
-            const whatsappBtn = document.getElementById('whatsapp-booking-btn');
-            
-            modalTitle.innerText = pkg.name;
-            modalImage.src = pkg.image;
-            modalItinerary.innerHTML = pkg.itinerary.replace(/\n/g, '<br>');
-            modalPrice.innerHTML = pkg.priceRange;
-            
-            const whatsappMessage = `Hi YourWayTravels, I'm interested in the ${pkg.name} package. Could you please share more details about pricing and availability?`;
-            whatsappBtn.onclick = () => {
-                window.open(`https://wa.me/919372599522?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-            };
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        };
-        
-        const closeModalBtn = document.getElementById('close-modal');
-        closeModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const modal = document.getElementById('modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+        // Close detail modal
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('modal').classList.add('hidden');
+            document.getElementById('modal').classList.remove('flex');
         });
         
+        // Close enquiry modal
+        document.getElementById('close-enquiry-modal').addEventListener('click', () => {
+            document.getElementById('enquiry-modal').classList.add('hidden');
+            document.getElementById('enquiry-modal').classList.remove('flex');
+        });
+        
+        // Trigger enquiry from detail modal
+        document.getElementById('enquiry-trigger-btn').addEventListener('click', () => {
+            if(selectedPackage) {
+                document.getElementById('modal').classList.add('hidden');
+                document.getElementById('modal').classList.remove('flex');
+                openEnquiryModal(selectedPackage.name);
+            }
+        });
+        
+        // Close modals when clicking outside
         window.addEventListener('click', (e) => {
             const modal = document.getElementById('modal');
+            const enquiryModal = document.getElementById('enquiry-modal');
             if (e.target === modal) {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
+            }
+            if (e.target === enquiryModal) {
+                enquiryModal.classList.add('hidden');
+                enquiryModal.classList.remove('flex');
             }
         });
         
