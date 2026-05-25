@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         .bg-brand-deep { background-color: #0B2B40; }
@@ -93,10 +95,58 @@
         }
         .nav-link:hover::after { width: 100%; }
         
+        /* Map Modal Styles */
+        .map-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-modal.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .map-modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+        }
         @media (max-width: 640px) {
+            .map-modal-content { width: 95%; height: 400px; }
             .hero-logo { width: 80px; height: 80px; }
             .hero-text h1 { font-size: 2rem; }
         }
+        .map-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .map-modal-close:hover { background: #f0f0f0; }
+        #destination-map { width: 100%; height: 100%; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -160,6 +210,7 @@
             <p class="text-center text-gray-500 max-w-2xl mx-auto mb-10 text-sm sm:text-base">Handpicked escapes for your dream vacation</p>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Kashmir Paradise -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover border border-gray-100">
                     <img src="https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=600&h=400&fit=crop" alt="Kashmir" class="h-48 w-full object-cover">
                     <div class="p-5">
@@ -167,11 +218,19 @@
                         <p class="text-gray-600 text-sm">7 Days / 6 Nights - Srinagar, Gulmarg, Pahalgam with houseboat stay.</p>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-brand-coral font-extrabold text-lg">₹18,000–22,000</span>
-                            <a href="packages.html" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">View Details →</a>
+                            <div class="flex gap-2">
+                                <button onclick="openMapModal(34.0837, 74.7973, 'Kashmir Paradise', '₹18,000–22,000', 'March–October')" class="text-sm font-semibold border border-brand-deep text-brand-deep px-3 py-1.5 rounded-full hover:bg-brand-deep hover:text-white transition">
+                                    <i class="fas fa-map-marker-alt"></i> Map
+                                </button>
+                                <button onclick="openDetailModal(1)" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">
+                                    View Details →
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Bali Tropical Escape -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover border border-gray-100">
                     <img src="https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=600&h=400&fit=crop" alt="Bali" class="h-48 w-full object-cover">
                     <div class="p-5">
@@ -179,11 +238,19 @@
                         <p class="text-gray-600 text-sm">6 Days / 5 Nights - Ubud, Tanah Lot, Nusa Penida.</p>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-brand-coral font-extrabold text-lg">₹50,000–90,000</span>
-                            <a href="packages.html" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">View Details →</a>
+                            <div class="flex gap-2">
+                                <button onclick="openMapModal(-8.3405, 115.0920, 'Bali Tropical Escape', '₹50,000–90,000', 'April–October')" class="text-sm font-semibold border border-brand-deep text-brand-deep px-3 py-1.5 rounded-full hover:bg-brand-deep hover:text-white transition">
+                                    <i class="fas fa-map-marker-alt"></i> Map
+                                </button>
+                                <button onclick="openDetailModal(6)" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">
+                                    View Details →
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
+                <!-- Dubai Luxury Tour -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover border border-gray-100">
                     <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&h=400&fit=crop" alt="Dubai" class="h-48 w-full object-cover">
                     <div class="p-5">
@@ -191,7 +258,14 @@
                         <p class="text-gray-600 text-sm">6 Days / 5 Nights - Burj Khalifa, Palm Jumeirah, Desert Safari.</p>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-brand-coral font-extrabold text-lg">₹65,000–1.3L</span>
-                            <a href="packages.html" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">View Details →</a>
+                            <div class="flex gap-2">
+                                <button onclick="openMapModal(25.2048, 55.2708, 'Dubai Luxury Tour', '₹65,000–1.3L', 'November–March')" class="text-sm font-semibold border border-brand-deep text-brand-deep px-3 py-1.5 rounded-full hover:bg-brand-deep hover:text-white transition">
+                                    <i class="fas fa-map-marker-alt"></i> Map
+                                </button>
+                                <button onclick="openDetailModal(7)" class="text-sm font-semibold bg-brand-deep text-white px-4 py-1.5 rounded-full hover:bg-brand-coral transition">
+                                    View Details →
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,6 +278,34 @@
             </div>
         </div>
     </section>
+
+    <!-- Map Modal -->
+    <div id="map-modal" class="map-modal">
+        <div class="map-modal-content">
+            <div class="map-modal-close" id="map-modal-close">&times;</div>
+            <div id="destination-map"></div>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 max-w-3xl w-full mx-auto max-h-[90vh] overflow-auto">
+            <div class="flex justify-between items-center mb-3">
+                <h3 id="detail-modal-title" class="text-xl sm:text-2xl font-bold text-brand-deep"></h3>
+                <button id="detail-modal-close" class="text-2xl sm:text-3xl text-gray-400 hover:text-gray-700 transition-colors">&times;</button>
+            </div>
+            <img id="detail-modal-image" src="" alt="" class="w-full h-40 sm:h-56 object-cover rounded-xl mb-4">
+            <div class="bg-gray-50 p-3 sm:p-4 rounded-xl mb-4">
+                <h4 class="font-bold text-brand-deep mb-2 text-sm sm:text-base">📋 Detailed Itinerary</h4>
+                <p id="detail-modal-itinerary" class="text-gray-700 whitespace-pre-line text-xs sm:text-sm leading-relaxed"></p>
+            </div>
+            <div class="bg-brand-deep/5 p-3 sm:p-4 rounded-xl mb-4">
+                <h4 class="font-bold text-brand-deep mb-2 text-sm sm:text-base">💰 Package Cost</h4>
+                <p id="detail-modal-price" class="text-gray-700 text-sm sm:text-base"></p>
+            </div>
+            <button id="detail-whatsapp-btn" class="cta-btn-custom w-full py-2 sm:py-3 rounded-xl font-bold text-white transition-all duration-300 text-sm sm:text-base">✈️ Request Custom Booking via WhatsApp</button>
+        </div>
+    </div>
 
     <!-- Services Section -->
     <section id="services" class="py-16 sm:py-20 bg-gray-50 scroll-reveal">
@@ -279,6 +381,73 @@
     </footer>
 
     <script>
+        let currentMap = null;
+
+        // Package Data for featured packages
+        const featuredPackages = {
+            1: {
+                name: "Kashmir Paradise Escape",
+                image: "https://images.unsplash.com/photo-1598091383021-15ddea10925d?w=600&h=400&fit=crop",
+                priceRange: "₹18,000–22,000",
+                itinerary: "KASHMIR PARADISE ESCAPE - 7 Days / 6 Nights\n\nSTAY PLAN:\n• Srinagar – 2 Nights\n• Gulmarg – 1 Night\n• Pahalgam – 2 Nights\n• Houseboat – 1 Night\n\nDAY 1 — Arrival Srinagar\nMorning: Airport pickup, Hotel check-in, Welcome drink\nAfternoon: Visit Mughal Gardens, Nishat Garden, Shalimar Garden, Chashme Shahi\nEvening: Shikara ride at Dal Lake, Floating market, Sunset photography\n\nDAY 2 — Sonmarg Excursion\nVisit: Sonmarg, Thajiwas Glacier, Sindh River\nActivities: Pony rides, Snow activities, Photography\n\nDAY 3 — Srinagar to Gulmarg\nVisit: Gulmarg\nActivities: Gondola Ride Phase I & II, Ski activities, ATV rides\n\nDAY 4-5 — Pahalgam\nVisit: Betaab Valley, Aru Valley, Chandanwari\nActivities: River rafting, Horse riding, Camping\n\nDAY 6 — Houseboat stay with cultural dinner\n\nDAY 7 — Departure\n\nPACKAGE COST:\nBudget: ₹18,000–22,000\nPremium: ₹45,000–60,000"
+            },
+            6: {
+                name: "Bali Tropical Escape",
+                image: "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=600&h=400&fit=crop",
+                priceRange: "₹50,000–90,000",
+                itinerary: "BALI TROPICAL ESCAPE - 6 Days / 5 Nights\n\nDAY 1-2 — Ubud, Rice terraces, Monkey Forest\n\nDAY 3 — Tanah Lot\n\nDAY 4 — Nusa Penida\n\nDAY 5 — Beach day\n\nDAY 6 — Departure\n\nESTIMATED COST: ₹50,000–90,000"
+            },
+            7: {
+                name: "Dubai Luxury Tour",
+                image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&h=400&fit=crop",
+                priceRange: "₹65,000–1.3L",
+                itinerary: "DUBAI LUXURY TOUR - 6 Days / 5 Nights\n\nVISIT:\n• Burj Khalifa\n• Palm Jumeirah\n• Desert Safari\n• Marina Cruise\n\nESTIMATED COST: ₹65,000–1.3L"
+            }
+        };
+
+        // Open detail modal with package information
+        function openDetailModal(packageId) {
+            const pkg = featuredPackages[packageId];
+            if (!pkg) return;
+            
+            const modal = document.getElementById('detail-modal');
+            document.getElementById('detail-modal-title').innerText = pkg.name;
+            document.getElementById('detail-modal-image').src = pkg.image;
+            document.getElementById('detail-modal-itinerary').innerHTML = pkg.itinerary.replace(/\n/g, '<br>');
+            document.getElementById('detail-modal-price').innerHTML = pkg.priceRange;
+            
+            // Update WhatsApp button
+            const whatsappBtn = document.getElementById('detail-whatsapp-btn');
+            const whatsappMessage = `Hi YourWayTravel, I'm interested in the ${pkg.name} package. Could you please share more details about pricing and availability?`;
+            whatsappBtn.onclick = () => {
+                window.open(`https://wa.me/919372599522?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+            };
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // Open map modal with destination details
+        function openMapModal(lat, lng, name, price, season) {
+            const modal = document.getElementById('map-modal');
+            if(currentMap) currentMap.remove();
+            modal.classList.add('active');
+            setTimeout(() => {
+                currentMap = L.map('destination-map').setView([lat, lng], 10);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { 
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors' 
+                }).addTo(currentMap);
+                const marker = L.marker([lat, lng]).addTo(currentMap);
+                marker.bindPopup(`<b>${name}</b><br>${price}<br>📍 Best Season: ${season}`).openPopup();
+            }, 100);
+        }
+
+        function closeMapModal() {
+            const modal = document.getElementById('map-modal');
+            modal.classList.remove('active');
+            if(currentMap) { currentMap.remove(); currentMap = null; }
+        }
+
         // Mobile menu toggle
         const toggleBtn = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -312,6 +481,27 @@
                     if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
                 }
             });
+        });
+
+        // Close map modal
+        document.getElementById('map-modal-close').addEventListener('click', closeMapModal);
+        window.addEventListener('click', (e) => { 
+            if(e.target === document.getElementById('map-modal')) closeMapModal(); 
+        });
+        
+        // Close detail modal
+        document.getElementById('detail-modal-close').addEventListener('click', () => {
+            const modal = document.getElementById('detail-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
+        
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('detail-modal');
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
         });
     </script>
 </body>
