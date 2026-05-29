@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>YourWayTravel | Your Choice, Your Way</title>
+    <!-- Favicon with background -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/YourWay Travel Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/YourWay Travel Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/YourWay Travel Logo.png">
+    <link rel="shortcut icon" href="./assets/images/YourWay Travel Logo.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -153,6 +158,15 @@
         .footer-bg-light {
             background: linear-gradient(135deg, #f5f5f0 0%, #e8e5df 100%);
             border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* Icon colors */
+        .icon-phone, .icon-email {
+            color: #E6865E;
+            transition: color 0.3s ease;
+        }
+        .icon-phone:hover, .icon-email:hover {
+            color: #D4724B;
         }
     </style>
 </head>
@@ -388,7 +402,10 @@
             </div>
             <div class="text-center text-xs sm:text-sm text-gray-500 pt-4 sm:pt-6">
                 <p>© 2025 YourWayTravel — Travel your rhythm, your rules.</p>
-                <p class="mt-1 sm:mt-2">📞 <a href="tel:+919372599522" class="hover:text-brand-coral">+91 9372 599 522</a> ✉️ <a href="mailto:kaivalya@yourwaytravel.in" class="hover:text-brand-coral">kaivalya@yourwaytravel.in</a></p>
+                <p class="mt-1 sm:mt-2">
+                    <i class="fas fa-phone-alt icon-phone mr-1"></i> <a href="tel:+919372599522" class="hover:text-brand-coral">+91 9372 599 522</a> 
+                    <i class="fas fa-envelope icon-email ml-2 mr-1"></i> <a href="mailto:kaivalya@yourwaytravel.in" class="hover:text-brand-coral">kaivalya@yourwaytravel.in</a>
+                </p>
             </div>
         </div>
     </footer>
