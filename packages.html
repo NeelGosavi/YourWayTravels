@@ -140,6 +140,12 @@
         }
         .map-modal-close:hover { background: #f0f0f0; }
         #destination-map { width: 100%; height: 100%; }
+        
+        /* Light Footer Styles */
+        .footer-bg-light {
+            background: linear-gradient(135deg, #f5f5f0 0%, #e8e5df 100%);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
@@ -333,20 +339,26 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-brand-deep text-gray-200 pt-8 sm:pt-12 pb-4 sm:pb-6">
+    <!-- Footer with Light Background and Larger Logo -->
+    <footer class="footer-bg-light text-gray-700 pt-8 sm:pt-12 pb-4 sm:pb-6">
         <div class="container mx-auto px-4 sm:px-5">
-            <div class="flex flex-col md:flex-row justify-between items-center border-b border-white/20 pb-6 sm:pb-8">
-                <div class="flex items-center gap-2 mb-4 md:mb-0 group">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-full flex items-center justify-center"><i class="fas fa-route text-brand-coral text-lg sm:text-xl"></i></div>
-                    <div><span class="text-xl sm:text-2xl font-extrabold text-white">YourWay<span class="text-brand-coral">Travel</span></span><p class="text-[10px] sm:text-xs opacity-80">YOUR CHOICE · YOUR WAY</p></div>
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-300 pb-6 sm:pb-8">
+                <div class="flex items-center gap-3 mb-4 md:mb-0 group">
+                    <!-- Larger Logo without background -->
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center">
+                        <img src="./assets/images/YourWay Travel NoBG.png" alt="YourWayTravel Logo" class="w-12 h-12 sm:w-14 sm:h-14 object-contain">
+                    </div>
+                    <div>
+                        <span class="text-xl sm:text-2xl font-extrabold text-brand-deep">YourWay<span class="text-brand-coral">Travel</span></span>
+                        <p class="text-[10px] sm:text-xs text-gray-500">YOUR CHOICE · YOUR WAY</p>
+                    </div>
                 </div>
                 <div class="flex gap-4 sm:gap-6">
-                    <a href="https://wa.me/919372599522?text=Hi%20YourWayTravel%2C%20I'd%20like%20to%20know%20more" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-green-400 transition"><i class="fab fa-whatsapp text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">WhatsApp</span></a>
-                    <a href="mailto:kaivalya@yourwaytravel.in?subject=Package%20Inquiry&body=Hi%20YourWayTravel" class="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition"><i class="fas fa-envelope text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">Email</span></a>
+                    <a href="https://wa.me/919372599522?text=Hi%20YourWayTravel%2C%20I'd%20like%20to%20know%20more" target="_blank" class="flex items-center gap-1 sm:gap-2 hover:text-green-600 transition text-gray-600"><i class="fab fa-whatsapp text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">WhatsApp</span></a>
+                    <a href="mailto:kaivalya@yourwaytravel.in?subject=Package%20Inquiry&body=Hi%20YourWayTravel" class="flex items-center gap-1 sm:gap-2 hover:text-blue-600 transition text-gray-600"><i class="fas fa-envelope text-lg sm:text-xl"></i><span class="text-xs sm:text-sm">Email</span></a>
                 </div>
             </div>
-            <div class="text-center text-xs sm:text-sm text-gray-300 pt-4 sm:pt-6">
+            <div class="text-center text-xs sm:text-sm text-gray-500 pt-4 sm:pt-6">
                 <p>© 2025 YourWayTravel — Travel your rhythm, your rules.</p>
                 <p class="mt-1 sm:mt-2">📞 <a href="tel:+919372599522" class="hover:text-brand-coral">+91 9372 599 522</a> ✉️ <a href="mailto:kaivalya@yourwaytravel.in" class="hover:text-brand-coral">kaivalya@yourwaytravel.in</a></p>
             </div>
